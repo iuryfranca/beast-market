@@ -1,0 +1,14 @@
+.footerContainer {
+  height: 5rem;
+  border-top: 1px solid var(--cyan-500);
+}
+
+.footerContent {
+  height: calc(5rem - 1px);
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
