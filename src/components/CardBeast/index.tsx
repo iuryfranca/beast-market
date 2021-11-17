@@ -23,7 +23,7 @@ export function CardBeast() {
         as={Grid}
         templateRows="repeat(5, 1fr)"
         gap="5px"
-        padding="8px"
+        marginLeft="15px"
       >
         <Text fontSize="12px">Name: Ni’vlek </Text>
         <Text fontSize="12px">cooldown: 11 d | 1h | 20m </Text>
@@ -32,7 +32,7 @@ export function CardBeast() {
         <Text fontSize="12px">price: $ 1232.99 </Text>
       </GridItem>
 
-      <Center align="center" padding="5px">
+      <Center align="center">
         <Button
           bg="#21B6E6"
           w="158px"
