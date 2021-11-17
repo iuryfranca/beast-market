@@ -36,7 +36,7 @@ export function CardBeast() {
           w="158px"
           h="40px"
         >
-          Add to cart
+          <Text fontWeight="400" fontSize="14px">Add to cart</Text>
         </Button>
       </Center>
     </Grid>
