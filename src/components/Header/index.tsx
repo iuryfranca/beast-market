@@ -1,37 +1,25 @@
-import { Box, HStack, Flex, Heading, Link } from '@chakra-ui/layout';
-import styles from './styles.module.scss'
+import { Box, HStack, Flex, Heading, Link, Center } from '@chakra-ui/layout';
 
 export function Header() {
   return (
-    // <header className={styles.headerContainer}>
-    //   <div className={styles.headerContent}>
-    //     <nav>
-    //       <h2>Beast Market</h2>
-    //     </nav>
-    //     <nav>
-    //       <a>Store</a>
-    //       <a>My Account</a>
-    //     </nav>
-
-    //     <button type="button">Teste</button>
-    //   </div>
-    // </header>
-
     <HStack as="header" h="5rem" maxW="1280px" m="0 auto">
-      <Flex align="center">
+      <Flex align="center" h="full" w="150px">
         <Heading as="h2">
           Beast Market
         </Heading>
+      </Flex>
 
-        <Box>
-          <Link to="/store">
-            Store
-          </Link>
-          <Link to="/myAccount">
-            My Account
-          </Link>
-        </Box>
+      <Center as={HStack} spacing="50px" h="full" flex="1">
+        <Link to="/store">
+          Store
+        </Link>
+        <Link to="/myAccount">
+          My Account
+        </Link>
+      </Center>
 
+      <Flex align="center" h="full" w="150px" justify="flex-end">
+        <Box h="50px" w="50px" rounded="50%" bg="#21B6E5"/>
       </Flex>
     </HStack>
   );
