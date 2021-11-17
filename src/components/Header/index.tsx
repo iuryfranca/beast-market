@@ -2,7 +2,7 @@ import { Box, HStack, Flex, Heading, Link, Center } from '@chakra-ui/layout';
 
 export function Header() {
   return (
-    <HStack as="header" h="5rem" maxW="1280px" m="0 auto">
+    <HStack as="header" h="5rem" maxW="1152px" m="0 auto">
       <Flex align="center" h="full" w="max-content">
         <Heading as="h2">
           Beast Market
