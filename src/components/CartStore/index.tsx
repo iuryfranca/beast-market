@@ -10,7 +10,7 @@ export function CartStore() {
   return (
     <Grid
       templateRows="1fr 70px"
-      w="225px"
+      w="235px"
       h="515px"
       bg="transparent"
       border="1px solid"
