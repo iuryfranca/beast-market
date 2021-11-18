@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { HStack, Center, Box, Flex, Grid, GridItem } from "@chakra-ui/react"
+import { HStack, Center, Grid, Button, Flex } from "@chakra-ui/react"
 import { CardBeast } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import React from 'react'
@@ -18,7 +18,7 @@ export default function Home() {
           spacing="15px"
           flex="1"
           h="calc(100vh - 10rem)"
-          gridTemplateRows="180px 1fr"
+          gridTemplateRows="180px 1fr 150px"
         >
           <Center>
             <Filters />
@@ -27,6 +27,35 @@ export default function Home() {
             <CardBeast />
             <CardBeast />
             <CardBeast />
+          </HStack>
+          <HStack gap="25px" justifyContent="center" alignItems="flex-start">
+            <Button
+              variant="link"
+              color="#FFFFFF"
+              fontSize="12px"
+              fontWeight="400"
+              _active={{ bg: "none", transform: "scale(0.80)", borderColor: "none", }}
+              _focus={{
+                boxShadow:
+                  "none",
+              }}
+            >
+              Previous page
+            </Button>
+
+            <Button
+              variant="link"
+              color="#FFFFFF"
+              fontSize="12px"
+              fontWeight="400"
+              _active={{ bg: "none", transform: "scale(0.80)", borderColor: "none", }}
+              _focus={{
+                boxShadow:
+                  "none",
+              }}
+            >
+              Next page
+            </Button>
           </HStack>
         </Grid>
         <Center spacing="15px" flex="1" h="calc(100vh - 10rem)">
