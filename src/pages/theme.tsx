@@ -10,6 +10,10 @@ export const theme = extendTheme({
         font: "400 1rem 'Roboto', sans-serif",
       },
 
+      span: {
+        fontWeight: "bold",
+      },
+
       a: {
         color: "inherit",
         textDecoration: "none",

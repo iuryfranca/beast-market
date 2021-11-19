@@ -48,7 +48,6 @@ export function Filters() {
       >
         <Select
           placeholder="Filter by element"
-          placeholderColor="#21B6E6"
           bg="#21B6E6"
           color="#FFFFFF"
           border="none"

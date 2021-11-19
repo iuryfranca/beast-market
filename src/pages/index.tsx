@@ -1,11 +1,26 @@
 import Head from 'next/head'
-import { HStack, Center, Grid, Button, Flex } from "@chakra-ui/react"
-import { CardBeast } from '../components/CardBeast'
+import React, { useEffect, useState } from 'react'
+
+import { HStack, Center, Grid, Button } from "@chakra-ui/react"
+import { CardBeast, CardBeastProps } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
-import React from 'react'
 import { Filters } from '../components/Filters'
+import { api } from '../pages/api/index'
+import axios from 'axios'
 
 export default function Home() {
+  const [beasts, setBeasts] = useState<CardBeastProps[]>([])
+
+  async function getBeats() {
+    const { data } =  await axios.get("https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=1&limit=3&order=desc&sort=asset_id")
+    setBeasts(data.data)
+    console.log(beasts, "")
+  }
+
+  useEffect(() => {
+    getBeats()
+  }, [])
+
   return (
     <>
       <Head>
@@ -24,9 +39,9 @@ export default function Home() {
             <Filters />
           </Center>
           <HStack align="top" spacing="15px" >
-            <CardBeast />
-            <CardBeast />
-            <CardBeast />
+            {beasts.map((item, index) => (
+              <CardBeast key={index} name={item.name} cooldown={item.data.cooldown} owner={item.owner} element={item.data.element} img={item.data.img}/>
+            ))}
           </HStack>
           <HStack gap="25px" justifyContent="center" alignItems="flex-start">
             <Button
