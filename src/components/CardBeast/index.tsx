@@ -20,7 +20,6 @@ export function CardBeast(props: CardBeastProps) {
       .then((data) => {
         setBeastImage(data)
       })
-    // https://ipfs.atomichub.io/ipfs/ {data returned from the api}.
   }
 
   useEffect(() => {
@@ -74,7 +73,7 @@ export function CardBeast(props: CardBeastProps) {
 }
 
 function returnDateFormating(date) {
-  if (date == '') return "beast without cooldown"
+  if (date == '') return " - "
 
   var dateFuture = new Date(date);
   var dateNow = new Date();

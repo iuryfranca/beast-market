@@ -2,12 +2,15 @@ import { Button } from "@chakra-ui/button";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Center, Flex, Grid } from "@chakra-ui/layout";
 import { SearchIcon } from "@chakra-ui/icons";
-import React from "react";
 import { Select } from "@chakra-ui/select";
+import React, { useState } from "react";
 
-export function Filters() {
-  const [show, setShow] = React.useState(false)
-  const handleClick = () => setShow(!show)
+interface sla {
+  onChangeElement?: any;
+}
+
+export function Filters({ onChangeElement }: sla) {
+  const [search, setSearch] = useState('')
 
   return (
     <Grid
@@ -25,6 +28,8 @@ export function Filters() {
           _hover={{ bg: "none" }}
           h="40px"
           w="315px"
+          value={search}
+          onChange={event => setSearch(event.target.value)}
         />
         <InputRightElement padding="0" w="55px">
           <Button
@@ -38,7 +43,7 @@ export function Filters() {
               boxShadow:
                 "none",
             }}
-            onClick={() => console.log("Teste")} />
+            />
         </InputRightElement>
       </InputGroup>
 
@@ -53,6 +58,7 @@ export function Filters() {
           border="none"
           w="165px"
           h="30px"
+          onChange={onChangeElement}
         >
           <option value="water"> Water</option>
           <option style={{ background: "#21B6E6" }} value="magic"> Magic</option>

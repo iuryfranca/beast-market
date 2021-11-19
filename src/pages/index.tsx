@@ -10,31 +10,38 @@ import axios from 'axios'
 export default function Home() {
   const [beasts, setBeasts] = useState<CardBeastProps[]>([])
   const [countPage, setCountPage] = useState(1)
+  const [element, setElement] = useState(null)
+  const [search, setSearch] = useState(null)
+  const [value, setValue] = useState(null)
 
-  async function getBeats() {
-    const { data } =  await axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3&order=desc&sort=asset_id`)
-    setBeasts(data.data)
+  var urlFilterElement = ""
+
+  filterElement()
+
+  useEffect(() => {
+    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3${urlFilterElement}&order=desc&sort=asset_id`)
+      .then(res => {
+        setBeasts(res.data.data)
+      })
+  }, [countPage, urlFilterElement])
+
+  function filterElement() {
+    if (element) {
+      urlFilterElement = `&data:text.element=${element}`
+    } else {
+      urlFilterElement = ''
+    }
   }
 
   function pageController(action) {
     if (action === 'next') {
-      console.log("next")
       setCountPage(countPage + 1)
     } else if (action === 'prev') {
-      console.log("prev")
-      if (countPage === 1) {
-        return false
-      } else {
+      if (countPage !== 1) {
         setCountPage(countPage - 1)
       }
     }
-
-    getBeats()
   }
-
-  useEffect(() => {
-    getBeats()
-  }, [])
 
   return (
     <>
@@ -51,7 +58,12 @@ export default function Home() {
           gridTemplateRows="180px 1fr 150px"
         >
           <Center>
-            <Filters />
+            <Filters
+              onChangeElement={(e) => {
+                setElement(e.target.value)
+                setCountPage(1)
+              }}
+            />
           </Center>
           <HStack align="top" spacing="15px" >
             {beasts.map((item, index) => (
