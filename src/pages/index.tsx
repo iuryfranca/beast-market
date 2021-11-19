@@ -17,9 +17,11 @@ export default function Home() {
   }
 
   function pageController(action) {
-    if (action = 'next') {
+    if (action === 'next') {
+      console.log("next")
       setCountPage(countPage + 1)
-    } else if (action = 'prev') {
+    } else if (action === 'prev') {
+      console.log("prev")
       if (countPage === 1) {
         return false
       } else {
@@ -67,7 +69,7 @@ export default function Home() {
                 boxShadow:
                   "none",
               }}
-              onClick={() => pageController('next') }
+              onClick={() => pageController('prev') }
             >
               Previous page
             </Button>
@@ -82,7 +84,7 @@ export default function Home() {
                 boxShadow:
                   "none",
               }}
-              onClick={() => pageController('prev')}
+              onClick={() => pageController('next')}
             >
               Next page
             </Button>

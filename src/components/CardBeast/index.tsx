@@ -48,7 +48,7 @@ export function CardBeast(props: CardBeastProps) {
         marginLeft="15px"
       >
         <Text fontSize="12px"><span>Name: </span> { props.name }</Text>
-        <Text fontSize="12px"><span>cooldown: </span> { returnDateFormating(props.option || '') }  </Text>
+        <Text fontSize="12px"><span>cooldown: </span> { returnDateFormating(props.cooldown || '') }  </Text>
         <Text fontSize="12px"><span>owner: </span>{ props.owner } </Text>
         <Text fontSize="12px"><span>element: </span>{ props.element } </Text>
         <Text fontSize="12px"><span>price: </span>$ 1232.99 </Text>
