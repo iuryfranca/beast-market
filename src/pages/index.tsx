@@ -5,16 +5,29 @@ import { HStack, Center, Grid, Button } from "@chakra-ui/react"
 import { CardBeast, CardBeastProps } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { Filters } from '../components/Filters'
-import { api } from '../pages/api/index'
 import axios from 'axios'
 
 export default function Home() {
   const [beasts, setBeasts] = useState<CardBeastProps[]>([])
+  const [countPage, setCountPage] = useState(1)
 
   async function getBeats() {
-    const { data } =  await axios.get("https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=1&limit=3&order=desc&sort=asset_id")
+    const { data } =  await axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3&order=desc&sort=asset_id`)
     setBeasts(data.data)
-    console.log(beasts, "")
+  }
+
+  function pageController(action) {
+    if (action = 'next') {
+      setCountPage(countPage + 1)
+    } else if (action = 'prev') {
+      if (countPage === 1) {
+        return false
+      } else {
+        setCountPage(countPage - 1)
+      }
+    }
+
+    getBeats()
   }
 
   useEffect(() => {
@@ -49,11 +62,12 @@ export default function Home() {
               color="#FFFFFF"
               fontSize="12px"
               fontWeight="400"
-              _active={{ bg: "none", transform: "scale(0.80)", borderColor: "none", }}
+              _active={{ bg: "none", transform: "scale(0.90)", borderColor: "none", }}
               _focus={{
                 boxShadow:
                   "none",
               }}
+              onClick={() => pageController('next') }
             >
               Previous page
             </Button>
@@ -63,11 +77,12 @@ export default function Home() {
               color="#FFFFFF"
               fontSize="12px"
               fontWeight="400"
-              _active={{ bg: "none", transform: "scale(0.80)", borderColor: "none", }}
+              _active={{ bg: "none", transform: "scale(0.90)", borderColor: "none", }}
               _focus={{
                 boxShadow:
                   "none",
               }}
+              onClick={() => pageController('prev')}
             >
               Next page
             </Button>

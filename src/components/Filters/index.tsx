@@ -54,7 +54,7 @@ export function Filters() {
           w="165px"
           h="30px"
         >
-          <option style={{ background: "#21B6E6" }} value="water"> Water</option>
+          <option value="water"> Water</option>
           <option style={{ background: "#21B6E6" }} value="magic"> Magic</option>
           <option style={{ background: "#21B6E6" }} value="electric"> Electric</option>
           <option style={{ background: "#21B6E6" }} value="fire"> Fire</option>

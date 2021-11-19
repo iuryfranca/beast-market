@@ -14,6 +14,13 @@ export const theme = extendTheme({
         fontWeight: "bold",
       },
 
+      select: {
+        bg: "#21B6E6",
+        option: {
+          bg: "#21B6E6",
+        },
+      },
+
       a: {
         color: "inherit",
         textDecoration: "none",

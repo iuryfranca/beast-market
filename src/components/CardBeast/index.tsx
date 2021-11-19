@@ -3,7 +3,6 @@ import { Image } from "@chakra-ui/image";
 import { Center, Grid, GridItem, Text } from "@chakra-ui/layout";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import * as Moment from 'moment';
 
 export interface CardBeastProps {
   name: string;
@@ -44,12 +43,12 @@ export function CardBeast(props: CardBeastProps) {
       </GridItem>
 
       <Grid
-        templateRows="repeat(5, 1fr)"
+        templateRows="repeat(5, max-content)"
         gap="5px"
         marginLeft="15px"
       >
         <Text fontSize="12px"><span>Name: </span> { props.name }</Text>
-        <Text fontSize="12px"><span>cooldown: </span> { returnDateFormating(props.cooldown) }  </Text>
+        <Text fontSize="12px"><span>cooldown: </span> { returnDateFormating(props.option || '') }  </Text>
         <Text fontSize="12px"><span>owner: </span>{ props.owner } </Text>
         <Text fontSize="12px"><span>element: </span>{ props.element } </Text>
         <Text fontSize="12px"><span>price: </span>$ 1232.99 </Text>
@@ -75,6 +74,8 @@ export function CardBeast(props: CardBeastProps) {
 }
 
 function returnDateFormating(date) {
+  if (date == '') return "beast without cooldown"
+
   var dateFuture = new Date(date);
   var dateNow = new Date();
 
