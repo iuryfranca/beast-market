@@ -5,14 +5,13 @@ import { HStack, Center, Grid, Button } from "@chakra-ui/react"
 import { CardBeast, CardBeastProps } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { Filters } from '../components/Filters'
+import { FilterSearch } from '../components/FilterSearch'
 import axios from 'axios'
 
 export default function Home() {
   const [beasts, setBeasts] = useState<CardBeastProps[]>([])
   const [countPage, setCountPage] = useState(1)
   const [element, setElement] = useState(null)
-  const [search, setSearch] = useState(null)
-  const [value, setValue] = useState(null)
 
   var urlFilterElement = ""
 
@@ -57,14 +56,20 @@ export default function Home() {
           h="calc(100vh - 10rem)"
           gridTemplateRows="180px 1fr 150px"
         >
-          <Center>
+          <Grid
+            as={Center}
+            gridTemplateRows="min-content min-content"
+            alignSelf="center"
+            gap="15px"
+          >
+            <FilterSearch/>
             <Filters
               onChangeElement={(e) => {
                 setElement(e.target.value)
                 setCountPage(1)
               }}
             />
-          </Center>
+          </Grid>
           <HStack align="top" spacing="15px" >
             {beasts.map((item, index) => (
               <CardBeast key={index} name={item.name} cooldown={item.data.cooldown} owner={item.owner} element={item.data.element} img={item.data.img}/>
