@@ -1,30 +1,21 @@
 import { Button } from "@chakra-ui/button"
 import { Image } from "@chakra-ui/image";
 import { Center, Grid, GridItem, Text } from "@chakra-ui/layout";
-import axios from "axios";
-import { useEffect, useState } from "react";
-
 export interface CardBeastProps {
-  name: string;
-  cooldown: any,
-  owner: any,
-  element: any,
-  img: any,
+  name: string,
+  cooldown: string,
+  owner: string,
+  element: string,
+  img: string,
+  onAddCart: any,
+  asset_id: number,
 }
 
 export function CardBeast(props: CardBeastProps) {
-  const [beastImage, setBeastImage] = useState<any>([])
 
-  async function getBeatsImage() {
-    axios.get(`https://ipfs.atomichub.io/ipfs/${props.img}`)
-      .then((data) => {
-        setBeastImage(data)
-      })
+  function getBeastToCart(props) {
+    props.onAddCart(props)
   }
-
-  useEffect(() => {
-    getBeatsImage()
-  }, [])
 
   return (
     <Grid
@@ -64,6 +55,7 @@ export function CardBeast(props: CardBeastProps) {
             boxShadow:
               "none",
           }}
+          onClick={() => getBeastToCart(props)}
         >
           <Text fontWeight="400" fontSize="14px">Add to cart</Text>
         </Button>

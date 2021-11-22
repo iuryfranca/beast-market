@@ -1,16 +1,12 @@
-import { Button } from "@chakra-ui/button";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Center, Flex, Grid } from "@chakra-ui/layout";
-import { SearchIcon } from "@chakra-ui/icons";
+import { Flex } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import React, { useState } from "react";
 
-interface sla {
+interface element {
   onChangeElement?: any;
 }
 
-export function Filters({ onChangeElement }: sla) {
-  const [search, setSearch] = useState('')
+export function FilterSelect({ onChangeElement }: element) {
 
   return (
       <Flex

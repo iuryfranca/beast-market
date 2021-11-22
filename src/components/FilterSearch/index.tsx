@@ -3,11 +3,11 @@ import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { SearchIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 
-interface sla {
-  onChangeSearch?: any;
+interface nameSearch {
+  onClickSearch?: any;
 }
 
-export function FilterSearch({ onChangeSearch }: sla) {
+export function FilterSearch(props: nameSearch) {
   const [search, setSearch] = useState('')
 
   return (
@@ -36,7 +36,7 @@ export function FilterSearch({ onChangeSearch }: sla) {
             boxShadow:
               "none",
           }}
-          />
+        />
       </InputRightElement>
     </InputGroup>
   );

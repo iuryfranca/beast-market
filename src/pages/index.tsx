@@ -1,34 +1,63 @@
 import Head from 'next/head'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { HStack, Center, Grid, Button } from "@chakra-ui/react"
 import { CardBeast, CardBeastProps } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
-import { Filters } from '../components/Filters'
+import { FilterSelect } from '../components/FilterSelect'
 import { FilterSearch } from '../components/FilterSearch'
+import { BeastContext } from '../hooks/useBeast'
 import axios from 'axios'
 
 export default function Home() {
+  // const beasts = useContext(BeastContext)
+
   const [beasts, setBeasts] = useState<CardBeastProps[]>([])
   const [countPage, setCountPage] = useState(1)
   const [element, setElement] = useState(null)
+  const [nameSearch, setNameSearch] = useState(null)
+  const [cartItems, setCartItems] = useState([])
 
   var urlFilterElement = ""
+  var urlFilterNameSearch = ""
 
   filterElement()
+  filterNameSearch()
 
   useEffect(() => {
-    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3${urlFilterElement}&order=desc&sort=asset_id`)
+    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3${urlFilterElement}${urlFilterNameSearch}&order=desc&sort=asset_id`)
       .then(res => {
         setBeasts(res.data.data)
       })
   }, [countPage, urlFilterElement])
+
+  const onAdd = (beast) => {
+    console.log(beast)
+    const exist = cartItems.find(x => x.asset_id === beast.asset_id);
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.asset_id === beast.asset_id ? { ...exist, qty: exist.qty + 1 } : x
+        )
+      );
+    } else {
+      setCartItems([...cartItems, {...beast, qty: 1}]);
+    }
+  }
 
   function filterElement() {
     if (element) {
       urlFilterElement = `&data:text.element=${element}`
     } else {
       urlFilterElement = ''
+    }
+  }
+
+  function filterNameSearch() {
+    if (nameSearch) {
+      urlFilterNameSearch = `&data:text.name=${nameSearch}`
+    } else {
+      urlFilterNameSearch = ''
     }
   }
 
@@ -54,7 +83,7 @@ export default function Home() {
           spacing="15px"
           flex="1"
           h="calc(100vh - 10rem)"
-          gridTemplateRows="180px 1fr 150px"
+          gridTemplateRows="180px 1fr 100px"
         >
           <Grid
             as={Center}
@@ -62,8 +91,13 @@ export default function Home() {
             alignSelf="center"
             gap="15px"
           >
-            <FilterSearch/>
-            <Filters
+            <FilterSearch
+              onClickSearch={(e) => {
+                setNameSearch(e)
+                setCountPage(1)
+              }}
+            />
+            <FilterSelect
               onChangeElement={(e) => {
                 setElement(e.target.value)
                 setCountPage(1)
@@ -71,8 +105,8 @@ export default function Home() {
             />
           </Grid>
           <HStack align="top" spacing="15px" >
-            {beasts.map((item, index) => (
-              <CardBeast key={index} name={item.name} cooldown={item.data.cooldown} owner={item.owner} element={item.data.element} img={item.data.img}/>
+            {beasts.map((item) => (
+              <CardBeast onAddCart={onAdd} key={item.asset_id} asset_id={item.asset_id} name={item.data.name} cooldown={item.data.cooldown} owner={item.owner} element={item.data.element} img={item.data.img}/>
             ))}
           </HStack>
           <HStack gap="25px" justifyContent="center" alignItems="flex-start">
@@ -108,7 +142,7 @@ export default function Home() {
           </HStack>
         </Grid>
         <Center spacing="15px" flex="1" h="calc(100vh - 10rem)">
-          <CartStore />
+          <CartStore onAddCart={onAdd} cartItems={ cartItems }/>
         </Center>
       </HStack>
     </>

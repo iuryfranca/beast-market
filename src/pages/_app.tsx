@@ -4,13 +4,16 @@ import { Footer } from '../components/Footer';
 
 import { theme } from "./theme";
 import { ChakraProvider } from '@chakra-ui/react';
+import { BeastProvider } from '../hooks/useBeast';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Header/>
-      <Component {...pageProps} />
-      <Footer/>
+      <BeastProvider>
+        <Header/>
+        <Component {...pageProps} />
+        <Footer/>
+      </BeastProvider>
     </ChakraProvider>
   );
 }
