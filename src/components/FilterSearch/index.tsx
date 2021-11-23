@@ -2,13 +2,11 @@ import { Button } from "@chakra-ui/button";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { SearchIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
+import { useBeast } from "../../hooks/useBeast";
 
-interface nameSearch {
-  onClickSearch?: any;
-}
-
-export function FilterSearch(props: nameSearch) {
+export function FilterSearch() {
   const [search, setSearch] = useState('')
+  const { onChangeSearchFilter } = useBeast()
 
   return (
     <InputGroup>
@@ -36,6 +34,7 @@ export function FilterSearch(props: nameSearch) {
             boxShadow:
               "none",
           }}
+          onClick={() => onChangeSearchFilter(search)}
         />
       </InputRightElement>
     </InputGroup>

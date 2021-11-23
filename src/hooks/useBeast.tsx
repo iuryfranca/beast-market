@@ -16,6 +16,7 @@ interface BeastsContextData {
   element: ElementData;
   onChangeElementFilter(data: ElementData): void;
   pageController(action: string): void;
+  onChangeSearchFilter(searchText: string): void;
 }
 
 export const BeastContext = createContext<BeastsContextData>({} as BeastsContextData);
@@ -24,11 +25,11 @@ export function BeastProvider({ children }: BeastProviderProps) {
   const [beasts, setBeasts] = useState<CardBeastProps[]>([])
   const [element, setElement] = useState<ElementData | undefined>(undefined)
   const [countPage, setCountPage] = useState(1)
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
-    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${ countPage }&limit=3${ element?.value? `&data:text.element=${element?.value}` : "" }&order=desc&sort=asset_id`)
+    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${ countPage }&limit=3${ element?.value? `&data:text.element=${element?.value}` : "" }${ search? `&data:text.name=${search}` : "" }&order=desc&sort=asset_id`)
       .then(res => {
-        console.log(res.data)
         const formatedBeast: CardBeastProps[] = res.data.data?.map((beast: any) => {
           return {
             name: beast.data.name,
@@ -41,7 +42,7 @@ export function BeastProvider({ children }: BeastProviderProps) {
         })
         setBeasts(formatedBeast)
       })
-  }, [element, countPage])
+  }, [element, countPage, search])
 
   function pageController(action: string) {
     if (action === 'next') {
@@ -51,6 +52,11 @@ export function BeastProvider({ children }: BeastProviderProps) {
         setCountPage(countPage - 1)
       }
     }
+  }
+
+  function onChangeSearchFilter(searchText) {
+    setCountPage(1)
+    return setSearch(searchText)
   }
 
   function onChangeElementFilter(data: ElementData) {
@@ -63,6 +69,7 @@ export function BeastProvider({ children }: BeastProviderProps) {
       beasts,
       element,
       onChangeElementFilter,
+      onChangeSearchFilter,
       pageController,
     }}>
       { children }

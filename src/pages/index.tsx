@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
-import { HStack, Center, Grid, Button } from "@chakra-ui/react"
-import { CardBeast, CardBeastProps } from '../components/CardBeast'
+import { HStack, Center, Grid, Button, Box } from "@chakra-ui/react"
+import { CardBeast } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { FilterSelect } from '../components/FilterSelect'
 import { FilterSearch } from '../components/FilterSearch'
-import { BeastContext, useBeast } from '../hooks/useBeast'
+import { useBeast } from '../hooks/useBeast'
 
 export default function Home() {
 
@@ -14,7 +14,6 @@ export default function Home() {
   const [cartItems, setCartItems] = useState([])
 
   const onAdd = (beast) => {
-    console.log(beast)
     const exist = cartItems.find(x => x.asset_id === beast.asset_id);
     if (exist) {
       setCartItems(
@@ -63,6 +62,7 @@ export default function Home() {
                 img={item?.img}
               />
             ))}
+            <Center w="-webkit-fill-available" display={beasts.length > 0 ? "none" : "flex"}>Nenhum Card disponível :"(</Center>
           </HStack>
           <HStack gap="25px" justifyContent="center" alignItems="flex-start">
             <Button
