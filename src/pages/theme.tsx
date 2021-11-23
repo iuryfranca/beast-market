@@ -3,7 +3,6 @@ import { extendTheme } from "@chakra-ui/react"
 export const theme = extendTheme({
   styles: {
     global: {
-
       body: {
         bg: "#230F5B",
         color: "#FFFFFF",
@@ -12,13 +11,6 @@ export const theme = extendTheme({
 
       span: {
         fontWeight: "bold",
-      },
-
-      select: {
-        bg: "#21B6E6",
-        option: {
-          bg: "#21B6E6",
-        },
       },
 
       a: {
@@ -30,4 +22,10 @@ export const theme = extendTheme({
       },
     },
   },
+
+  colors: {
+    personalized: {
+      cyan: "#21B6E5"
+    }
+  }
 })

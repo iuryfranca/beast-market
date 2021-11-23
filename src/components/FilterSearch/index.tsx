@@ -16,7 +16,7 @@ export function FilterSearch(props: nameSearch) {
         pr="4.5rem"
         placeholder="Search"
         border="1px solid"
-        borderColor="#21B6E5"
+        borderColor="personalized.cyan"
         borderRadius="8px"
         _hover={{ bg: "none" }}
         h="40px"

@@ -1,34 +1,76 @@
+import { Button } from "@chakra-ui/button";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Flex } from "@chakra-ui/layout";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { Select } from "@chakra-ui/select";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { useBeast } from "../../hooks/useBeast";
 
-interface element {
-  onChangeElement?: any;
-}
+export function FilterSelect() {
+  const selectOptions = [
+    {
+      value: 'water',
+      name: "Water"
+    },
+    {
+      value: 'magic',
+      name: "Magic"
+    },
+    {
+      value: 'electric',
+      name: "Eletric"
+    },
+    {
+      value: 'fire',
+      name: "Fire"
+    },
+    {
+      value: 'earth',
+      name: "Earth"
+    },
+    {
+      value: 'air',
+      name: "Air"
+    }
+  ]
 
-export function FilterSelect({ onChangeElement }: element) {
+  const { onChangeElementFilter, element } = useBeast()
 
   return (
       <Flex
         spacing="100px"
         justify="space-between"
       >
-        <Select
-          placeholder="Filter by element"
-          bg="#21B6E6"
-          color="#FFFFFF"
-          border="none"
-          w="165px"
+      <Menu autoSelect={false}>
+        <MenuButton
+          as={Button}
+          w="175px"
           h="30px"
-          onChange={onChangeElement}
+          bg="personalized.cyan"
+          _hover={{ bg: "personalized.cyan" }}
+          _active={{ bg: "personalized.cyan" }}
+          rightIcon={<ChevronDownIcon />}
+          justifyContent="start"
         >
-          <option style={{ background: "#21B6E6" }} value="water"> Water</option>
-          <option style={{ background: "#21B6E6" }} value="magic"> Magic</option>
-          <option style={{ background: "#21B6E6" }} value="electric"> Electric</option>
-          <option style={{ background: "#21B6E6" }} value="fire"> Fire</option>
-          <option style={{ background: "#21B6E6" }} value="earth"> Earth</option>
-          <option style={{ background: "#21B6E6" }} value="air"> Air</option>
-        </Select>
+          { element?.label || "Filter by element" }
+        </MenuButton>
+        <MenuList
+          bg="personalized.cyan"
+        >
+          {selectOptions.map((item) => (
+            <MenuItem
+              onClick={() => onChangeElementFilter({ label: item.name, value: item.value })}
+              _hover={{ bg: "none" }}
+              bg="personalized.cyan"
+              key={item.value}
+              value={item.value}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+
         <Select
           placeholder="Sort by"
           bg="#21B6E6"

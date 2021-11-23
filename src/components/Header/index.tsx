@@ -19,7 +19,7 @@ export function Header() {
       </Center>
 
       <Flex align="center" h="full" w="150px" justify="flex-end">
-        <Box h="50px" w="50px" rounded="50%" bg="#21B6E5"/>
+        <Box h="50px" w="50px" rounded="50%" bg="personalized.cyan"/>
       </Flex>
     </HStack>
   );

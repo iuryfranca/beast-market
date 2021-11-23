@@ -6,30 +6,12 @@ import { CardBeast, CardBeastProps } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { FilterSelect } from '../components/FilterSelect'
 import { FilterSearch } from '../components/FilterSearch'
-import { BeastContext } from '../hooks/useBeast'
-import axios from 'axios'
+import { BeastContext, useBeast } from '../hooks/useBeast'
 
 export default function Home() {
-  // const beasts = useContext(BeastContext)
 
-  const [beasts, setBeasts] = useState<CardBeastProps[]>([])
-  const [countPage, setCountPage] = useState(1)
-  const [element, setElement] = useState(null)
-  const [nameSearch, setNameSearch] = useState(null)
+  const { beasts, pageController } = useBeast()
   const [cartItems, setCartItems] = useState([])
-
-  var urlFilterElement = ""
-  var urlFilterNameSearch = ""
-
-  filterElement()
-  filterNameSearch()
-
-  useEffect(() => {
-    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3${urlFilterElement}${urlFilterNameSearch}&order=desc&sort=asset_id`)
-      .then(res => {
-        setBeasts(res.data.data)
-      })
-  }, [countPage, urlFilterElement])
 
   const onAdd = (beast) => {
     console.log(beast)
@@ -42,32 +24,6 @@ export default function Home() {
       );
     } else {
       setCartItems([...cartItems, {...beast, qty: 1}]);
-    }
-  }
-
-  function filterElement() {
-    if (element) {
-      urlFilterElement = `&data:text.element=${element}`
-    } else {
-      urlFilterElement = ''
-    }
-  }
-
-  function filterNameSearch() {
-    if (nameSearch) {
-      urlFilterNameSearch = `&data:text.name=${nameSearch}`
-    } else {
-      urlFilterNameSearch = ''
-    }
-  }
-
-  function pageController(action) {
-    if (action === 'next') {
-      setCountPage(countPage + 1)
-    } else if (action === 'prev') {
-      if (countPage !== 1) {
-        setCountPage(countPage - 1)
-      }
     }
   }
 
@@ -91,22 +47,21 @@ export default function Home() {
             alignSelf="center"
             gap="15px"
           >
-            <FilterSearch
-              onClickSearch={(e) => {
-                setNameSearch(e)
-                setCountPage(1)
-              }}
-            />
-            <FilterSelect
-              onChangeElement={(e) => {
-                setElement(e.target.value)
-                setCountPage(1)
-              }}
-            />
+            <FilterSearch />
+            <FilterSelect />
           </Grid>
           <HStack align="top" spacing="15px" >
             {beasts.map((item) => (
-              <CardBeast onAddCart={onAdd} key={item.asset_id} asset_id={item.asset_id} name={item.data.name} cooldown={item.data.cooldown} owner={item.owner} element={item.data.element} img={item.data.img}/>
+              <CardBeast
+                onAddCart={onAdd}
+                key={item?.asset_id}
+                asset_id={item?.asset_id}
+                name={item?.name}
+                cooldown={item?.cooldown}
+                owner={item?.owner}
+                element={item?.element}
+                img={item?.img}
+              />
             ))}
           </HStack>
           <HStack gap="25px" justifyContent="center" alignItems="flex-start">
@@ -120,7 +75,7 @@ export default function Home() {
                 boxShadow:
                   "none",
               }}
-              onClick={() => pageController('prev') }
+              onClick={() => pageController("prev")}
             >
               Previous page
             </Button>
@@ -135,7 +90,7 @@ export default function Home() {
                 boxShadow:
                   "none",
               }}
-              onClick={() => pageController('next')}
+              onClick={() => pageController("next")}
             >
               Next page
             </Button>

@@ -15,7 +15,7 @@ export function CartStore({ cartItems, onAddCart } :CartStore) {
       h="515px"
       bg="transparent"
       border="1px solid"
-      borderColor="#21B6E5"
+      borderColor="personalized.cyan"
       borderRadius="8px"
     >
       <Box
@@ -32,9 +32,9 @@ export function CartStore({ cartItems, onAddCart } :CartStore) {
       </Box>
 
       <Center
-        bg="#21B6E5"
+        bg="personalized.cyan"
         border="1px solid"
-        borderColor="#21B6E5"
+        borderColor="personalized.cyan"
         borderRadius="8px"
       >
         <Text fontWeight="700" fontSize="18px">Total: $ 999.999</Text>

@@ -6,23 +6,44 @@ interface BeastProviderProps {
   children: ReactNode
 }
 
-export const BeastContext = createContext<CardBeastProps[]>([]);
+type ElementData = {
+  value: string;
+  label: string;
+}
+
+interface BeastsContextData {
+  beasts: CardBeastProps[];
+  element: ElementData;
+  onChangeElementFilter(data: ElementData): void;
+  pageController(action: string): void;
+}
+
+export const BeastContext = createContext<BeastsContextData>({} as BeastsContextData);
 
 export function BeastProvider({ children }: BeastProviderProps) {
   const [beasts, setBeasts] = useState<CardBeastProps[]>([])
+  const [element, setElement] = useState<ElementData | undefined>(undefined)
   const [countPage, setCountPage] = useState(1)
 
-  var urlFilterElement = ""
-
   useEffect(() => {
-    // axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${countPage}&limit=3${urlFilterElement}&order=desc&sort=asset_id`)
-    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=1&limit=3${urlFilterElement}&order=desc&sort=asset_id`)
+    axios.get(`https://test.wax.api.atomicassets.io/atomicassets/v1/assets?collection_name=bgcollection&schema_name=beasts&owner=littigkami21&page=${ countPage }&limit=3${ element?.value? `&data:text.element=${element?.value}` : "" }&order=desc&sort=asset_id`)
       .then(res => {
-        setBeasts(res.data.data)
+        console.log(res.data)
+        const formatedBeast: CardBeastProps[] = res.data.data?.map((beast: any) => {
+          return {
+            name: beast.data.name,
+            cooldown: beast.data.cooldown,
+            element: beast.data.element,
+            img: beast.data.img,
+            owner: beast.owner,
+            asset_id: beast.asset_id,
+          }
+        })
+        setBeasts(formatedBeast)
       })
-  }, [])
+  }, [element, countPage])
 
-  function getPagination(action) {
+  function pageController(action: string) {
     if (action === 'next') {
       setCountPage(countPage + 1)
     } else if (action === 'prev') {
@@ -32,18 +53,18 @@ export function BeastProvider({ children }: BeastProviderProps) {
     }
   }
 
-  async function getFilter(filterElement, filterSortBy) {
-    if (filterElement) {
-      urlFilterElement = `&data:text.element=${filterElement}`
-    } else {
-      urlFilterElement = ''
-    }
+  function onChangeElementFilter(data: ElementData) {
+    setCountPage(1)
+    return setElement(data)
   }
 
   return (
-    <BeastContext.Provider value={
-      beasts
-    }>
+    <BeastContext.Provider value={{
+      beasts,
+      element,
+      onChangeElementFilter,
+      pageController,
+    }}>
       { children }
     </BeastContext.Provider>
   );

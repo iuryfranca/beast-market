@@ -17,7 +17,7 @@ export function CardCart({name, quantity, img, cooldown, owner}: CardCartProps) 
       h="110px"
       bg="transparent"
       border="1px solid"
-      borderColor="#21B6E5"
+      borderColor="personalized.cyan"
       borderRadius="8px"
       padding="5px"
       marginTop="10px"
