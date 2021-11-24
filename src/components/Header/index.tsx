@@ -1,15 +1,15 @@
-import { Box, HStack, Flex, Heading, Link, Center } from '@chakra-ui/layout';
+import { Box, HStack, Flex, Heading, Link, Center, Grid } from '@chakra-ui/layout';
 
 export function Header() {
   return (
-    <HStack as="header" h="5rem" maxW="1152px" m="0 auto">
-      <Flex align="center" h="full" w="max-content">
-        <Heading as="h2">
+    <HStack as={Grid} gridTemplateColumns={{ base: "100px 50px", md: "auto auto auto" }} h="5rem" width={{ base: "300px", md: "650px", lg: "1155px" }} m="0 auto">
+      <Flex align="center">
+        <Heading as="h2" fontSize={{base: "20px", md: "32px"}}>
           Beast Market
         </Heading>
       </Flex>
 
-      <Center as={HStack} spacing="50px" h="full" flex="1">
+      <Center as={HStack} display={{base: "none", md: "flex"}} spacing="50px" flex="1">
         <Link to="/store">
           Store
         </Link>
@@ -18,7 +18,7 @@ export function Header() {
         </Link>
       </Center>
 
-      <Flex align="center" h="full" w="150px" justify="flex-end">
+      <Flex align="center" w="150px" justify="flex-end">
         <Box h="50px" w="50px" rounded="50%" bg="personalized.cyan"/>
       </Flex>
     </HStack>

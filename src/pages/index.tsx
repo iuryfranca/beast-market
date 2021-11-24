@@ -1,15 +1,14 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-
-import { HStack, Center, Grid, Button, Box } from "@chakra-ui/react"
+import { HStack, Center, Grid, Button, Box, Flex } from "@chakra-ui/react"
 import { CardBeast } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { FilterSelect } from '../components/FilterSelect'
 import { FilterSearch } from '../components/FilterSearch'
 import { useBeast } from '../hooks/useBeast'
+import $ from 'jquery'
 
 export default function Home() {
-
   const { beasts, pageController } = useBeast()
   const [cartItems, setCartItems] = useState([])
 
@@ -32,13 +31,12 @@ export default function Home() {
         <title>Beast Market</title>
       </Head>
 
-      <HStack spacing="100px" m="0 auto" maxW="1152px" align="center">
+      <HStack spacing="100px" m="0 auto" width={{ base: "370px", md: "650px", lg: "1155px" }} align="center">
         <Grid
-          marginLeft="50px"
           spacing="15px"
           flex="1"
-          h="calc(100vh - 10rem)"
-          gridTemplateRows="180px 1fr 100px"
+          h="calc(100% - 10rem)"
+          gridTemplateRows={{ base: "100px 1fr 50px", md: "180px 1fr 100px" }}
         >
           <Grid
             as={Center}
@@ -49,7 +47,13 @@ export default function Home() {
             <FilterSearch />
             <FilterSelect />
           </Grid>
-          <HStack align="top" spacing="15px" >
+          <Center
+            as={Grid}
+            flexDirection={{ base: "column", md: "row" }}
+            align={{ base: "center", lg: "top" }}
+            gap="10px"
+            padding="20px 0"
+          >
             {beasts.map((item) => (
               <CardBeast
                 onAddCart={onAdd}
@@ -63,7 +67,7 @@ export default function Home() {
               />
             ))}
             <Center w="-webkit-fill-available" display={beasts.length > 0 ? "none" : "flex"}>Nenhum Card disponível :"(</Center>
-          </HStack>
+          </Center>
           <HStack gap="25px" justifyContent="center" alignItems="flex-start">
             <Button
               variant="link"
@@ -75,7 +79,10 @@ export default function Home() {
                 boxShadow:
                   "none",
               }}
-              onClick={() => pageController("prev")}
+              onClick={() => {
+                $('html, body').animate({scrollTop:0}, 'slow');
+                pageController("prev")
+              }}
             >
               Previous page
             </Button>
@@ -90,13 +97,16 @@ export default function Home() {
                 boxShadow:
                   "none",
               }}
-              onClick={() => pageController("next")}
+              onClick={() => {
+                $('html, body').animate({scrollTop:0}, 'slow');
+                pageController("next")
+              }}
             >
               Next page
             </Button>
           </HStack>
         </Grid>
-        <Center spacing="15px" flex="1" h="calc(100vh - 10rem)">
+        <Center display={{base: "none", md: "flex"}} spacing="15px" flex="1" h="calc(100vh - 10rem)">
           <CartStore onAddCart={onAdd} cartItems={ cartItems }/>
         </Center>
       </HStack>

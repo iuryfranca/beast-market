@@ -67,8 +67,8 @@ export function CardBeast(props: CardBeastProps) {
 function returnDateFormatting(date) {
   if (date == '') return " - "
 
-  var dateFuture = new Date(date);
-  var dateNow = new Date();
+  var dateFuture: any = new Date(date);
+  var dateNow: any = new Date();
 
   var seconds = Math.floor((dateFuture - (dateNow))/1000);
   var minutes = Math.floor(seconds/60);

@@ -20,8 +20,6 @@ export function CardCart({name, quantity, img, cooldown, owner}: CardCartProps) 
       borderColor="personalized.cyan"
       borderRadius="8px"
       padding="5px"
-      marginTop="10px"
-      marginBottom="5px"
     >
       <Box align="center">
         <Image h="95px" w="68px" src={"https://ipfs.atomichub.io/ipfs/"+img} alt="Beast" />
@@ -38,8 +36,8 @@ export function CardCart({name, quantity, img, cooldown, owner}: CardCartProps) 
   function returnDateFormating(date) {
     if (date == '') return " - "
 
-    var dateFuture = new Date(date);
-    var dateNow = new Date();
+    var dateFuture: any = new Date(date);
+    var dateNow: any = new Date();
 
     var seconds = Math.floor((dateFuture - (dateNow))/1000);
     var minutes = Math.floor(seconds/60);
