@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import { HStack, Center, Grid, Button } from "@chakra-ui/react"
+import { HStack, Center, Grid, Button, Box } from "@chakra-ui/react"
+import { Image } from "@chakra-ui/image"
 import { CardBeast } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { FilterSelect } from '../components/FilterSelect'
@@ -21,7 +22,7 @@ import {
 export default function Home( ) {
   const { beasts, pageController } = useBeast()
   const [cartItems, setCartItems] = useState([])
-  const { isOpen, onClose } = useDisclosure()
+  const { onOpen, isOpen, onClose } = useDisclosure()
 
   const onAdd = (beast) => {
     const exist = cartItems.find(x => x.asset_id === beast.asset_id);
@@ -123,20 +124,34 @@ export default function Home( ) {
         </Center>
       </HStack>
 
+      <Box display={{base: "flex", md: "none"}} position="fixed" bottom="40px" top="all" right="40px" float="right">
+        <Button
+          bg="#21B6E6"
+          w="50px"
+          h="50px"
+          _hover={{ bg: "#21b5e6d1" }}
+          _active={{ bg: "#21b5e6d1", transform: "scale(0.95)", borderColor: "none", }}
+          _focus={{
+            boxShadow:
+              "none",
+          }}
+          boxShadow="dark-lg"
+          display={{ base: "flex", md: "none" }}
+          onClick={onOpen}
+        >
+          <Image h="35px" w="35px" src="./shopping_cart_white_24dp.svg" alt="" />
+        </Button>
+      </Box>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+        <ModalContent h="auto" w="auto" bg="#230F5B">
+          <ModalHeader>Shopping Cart</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-
-          </ModalBody>
             <CartStore onAddCart={onAdd} cartItems={ cartItems }/>
+          </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

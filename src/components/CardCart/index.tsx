@@ -20,6 +20,8 @@ export function CardCart({name, quantity, img, cooldown, owner}: CardCartProps) 
       borderColor="personalized.cyan"
       borderRadius="8px"
       padding="5px"
+      marginTop="10px"
+      marginBottom="5px"
     >
       <Box align="center">
         <Image h="95px" w="68px" src={"https://ipfs.atomichub.io/ipfs/"+img} alt="Beast" />
