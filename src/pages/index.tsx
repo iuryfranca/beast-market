@@ -1,16 +1,27 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-import { HStack, Center, Grid, Button, Box, Flex } from "@chakra-ui/react"
+import { HStack, Center, Grid, Button } from "@chakra-ui/react"
 import { CardBeast } from '../components/CardBeast'
 import { CartStore } from '../components/CartStore'
 import { FilterSelect } from '../components/FilterSelect'
 import { FilterSearch } from '../components/FilterSearch'
 import { useBeast } from '../hooks/useBeast'
+import { useDisclosure } from '@chakra-ui/hooks';
 import $ from 'jquery'
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 
-export default function Home() {
+export default function Home( ) {
   const { beasts, pageController } = useBeast()
   const [cartItems, setCartItems] = useState([])
+  const { isOpen, onClose } = useDisclosure()
 
   const onAdd = (beast) => {
     const exist = cartItems.find(x => x.asset_id === beast.asset_id);
@@ -43,6 +54,7 @@ export default function Home() {
             gridTemplateRows="min-content min-content"
             alignSelf="center"
             gap="15px"
+            marginTop="10px"
           >
             <FilterSearch />
             <FilterSelect />
@@ -110,6 +122,24 @@ export default function Home() {
           <CartStore onAddCart={onAdd} cartItems={ cartItems }/>
         </Center>
       </HStack>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+
+          </ModalBody>
+            <CartStore onAddCart={onAdd} cartItems={ cartItems }/>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }

@@ -3,11 +3,15 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Flex } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { Select } from "@chakra-ui/select";
-import React, { useContext } from "react";
+import React from "react";
 import { useBeast } from "../../hooks/useBeast";
 
 export function FilterSelect() {
   const selectOptions = [
+    {
+      value: null,
+      name: "Filter by element"
+    },
     {
       value: 'water',
       name: "Water"
