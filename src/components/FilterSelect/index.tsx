@@ -7,7 +7,7 @@ import React from "react";
 import { useBeast } from "../../hooks/useBeast";
 
 export function FilterSelect() {
-  const selectOptions = [
+  const selectOptionsElement = [
     {
       value: null,
       name: "Filter by element"
@@ -38,6 +38,21 @@ export function FilterSelect() {
     }
   ]
 
+  const selectOptionsSortBy = [
+    {
+      value: null,
+      name: "Sort by"
+    },
+    {
+      value: 'highest',
+      name: "Highest price"
+    },
+    {
+      value: 'lowest',
+      name: "Lowest price"
+    },
+  ]
+
   const { onChangeElementFilter, element } = useBeast()
 
   return (
@@ -61,7 +76,7 @@ export function FilterSelect() {
         <MenuList
           bg="personalized.cyan"
         >
-          {selectOptions.map((item) => (
+          {selectOptionsElement.map((item) => (
             <MenuItem
               onClick={() => onChangeElementFilter({ label: item.name, value: item.value })}
               _hover={{ bg: "none" }}
@@ -75,22 +90,39 @@ export function FilterSelect() {
         </MenuList>
       </Menu>
 
-
-        {/*
-          TODO: Filtro não funciona por conta de nao ter pego os preço da API, como coloquei os preço na mão, não seria viável filtrar pela api
-          e o filtro não fosse feito pela api, só iria funcionar nos items que estariam já sendo exibidos já que tem a questão da paginação e tals
-        */}
-        <Select
-          placeholder="Sort by"
-          bg="#21B6E6"
-          color="#FFFFFF"
-          border="none"
+      {/*
+        TODO: Filtro não funciona por conta de nao ter pego os preço da API, como coloquei os preço na mão, não seria viável filtrar pela api
+        e o filtro não fosse feito pela api, só iria funcionar nos items que estariam já sendo exibidos já que tem a questão da paginação e tals
+      */}
+      <Menu autoSelect={false}>
+        <MenuButton
+          as={Button}
           w="120px"
           h="30px"
+          bg="personalized.cyan"
+          _hover={{ bg: "personalized.cyan" }}
+          _active={{ bg: "personalized.cyan" }}
+          rightIcon={<ChevronDownIcon />}
+          justifyContent="start"
         >
-          <option value="highest"> Highest price</option>
-          <option value="lowest"> Lowest price</option>
-        </Select>
-      </Flex>
+          { selectOptionsSortBy[0].name }
+        </MenuButton>
+        <MenuList
+          bg="personalized.cyan"
+        >
+          {selectOptionsSortBy.map((item) => (
+            <MenuItem
+              // onClick={() => onChangeElementFilter({ label: item.name, value: item.value })}
+              _hover={{ bg: "none" }}
+              bg="personalized.cyan"
+              key={item.value}
+              value={item.value}
+            >
+              {item.name}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+    </Flex>
   );
 }

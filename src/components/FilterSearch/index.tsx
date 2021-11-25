@@ -23,7 +23,7 @@ export function FilterSearch() {
         onChange={event => {
           setSearch(event.target.value)
           if (event.target.value === '') {
-            onChangeSearchFilter("")
+            onChangeSearchFilter('')
           }
         }}
       />
