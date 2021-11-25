@@ -2,13 +2,14 @@ import { Button } from "@chakra-ui/button"
 import { Image } from "@chakra-ui/image";
 import { Center, Grid, GridItem, Text } from "@chakra-ui/layout";
 export interface CardBeastProps {
-  name: string,
-  cooldown: string,
-  element: string,
-  img: string,
-  owner: string,
-  onAddCart: any,
-  asset_id: number,
+  name: string;
+  cooldown: string;
+  element: string;
+  img: string;
+  owner: string;
+  price: number;
+  onAddCart: any;
+  asset_id: number;
 }
 
 export function CardBeast(props: CardBeastProps) {
@@ -16,6 +17,11 @@ export function CardBeast(props: CardBeastProps) {
   function getBeastToCart(props) {
     props.onAddCart(props)
   }
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
 
   return (
     <Grid
@@ -41,7 +47,7 @@ export function CardBeast(props: CardBeastProps) {
         <Text fontSize="12px"><span>cooldown: </span> { returnDateFormatting(props.cooldown || '') }  </Text>
         <Text fontSize="12px"><span>owner: </span>{ props.owner } </Text>
         <Text fontSize="12px"><span>element: </span>{ props.element } </Text>
-        <Text fontSize="12px"><span>price: </span>$ 1232.99 </Text>
+        <Text fontSize="12px"><span>price: </span>{ formatter.format(props.price) }</Text>
       </Grid>
 
       <Center align="center">

@@ -7,6 +7,7 @@ interface CardCartProps {
   img: string;
   cooldown: string;
   owner: string;
+  price: Number;
 }
 
 export function CardCart({name, quantity, img, cooldown, owner}: CardCartProps) {

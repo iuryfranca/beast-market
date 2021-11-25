@@ -77,6 +77,7 @@ export default function Home( ) {
                 owner={item?.owner}
                 element={item?.element}
                 img={item?.img}
+                price={item.price}
               />
             ))}
             <Center w="-webkit-fill-available" display={beasts.length > 0 ? "none" : "flex"}>Nenhum Card disponível :"(</Center>

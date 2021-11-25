@@ -7,7 +7,19 @@ interface CartStore {
   onAddCart: any,
 }
 
-export function CartStore({ cartItems, onAddCart } :CartStore) {
+export function CartStore({ cartItems, onAddCart }: CartStore) {
+  const pricesCartItems = cartItems.map(x => x.price * x.qty)
+  const sumCart = pricesCartItems.reduce(add, 0)
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  function add(accumulator, a) {
+    return accumulator + a;
+  }
+
   return (
     <Grid
       templateRows="1fr 70px"
@@ -27,7 +39,7 @@ export function CartStore({ cartItems, onAddCart } :CartStore) {
         alignItems="center"
       >
         {cartItems.map((item, index) => (
-          <CardCart key={index} name={item.name} quantity={ item.qty } img={ item.img } cooldown={ item.cooldown } owner={ item.owner }/>
+          <CardCart key={index} name={item.name} quantity={item.qty} img={item.img} cooldown={item.cooldown} owner={item.owner} price={item.price}/>
         ))}
       </Box>
 
@@ -37,7 +49,7 @@ export function CartStore({ cartItems, onAddCart } :CartStore) {
         borderColor="personalized.cyan"
         borderRadius="8px"
       >
-        <Text fontWeight="700" fontSize="18px">Total: $ 999.999</Text>
+        <Text fontWeight="700" fontSize="18px">Total: { formatter.format(sumCart) }</Text>
       </Center>
     </Grid>
   );

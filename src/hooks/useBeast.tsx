@@ -38,6 +38,7 @@ export function BeastProvider({ children }: BeastProviderProps) {
             img: beast.data.img,
             owner: beast.owner,
             asset_id: beast.asset_id,
+            price: getRandomArbitrary(0, 500),
           }
         })
         setBeasts(formatedBeast)
@@ -52,6 +53,10 @@ export function BeastProvider({ children }: BeastProviderProps) {
         setCountPage(countPage - 1)
       }
     }
+  }
+
+  function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
   }
 
   function onChangeSearchFilter(searchText) {
