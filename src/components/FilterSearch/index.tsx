@@ -20,7 +20,12 @@ export function FilterSearch() {
         h="40px"
         w="315px"
         value={search}
-        onChange={event => setSearch(event.target.value)}
+        onChange={event => {
+          setSearch(event.target.value)
+          if (event.target.value === '') {
+            onChangeSearchFilter("")
+          }
+        }}
       />
       <InputRightElement padding="0" w="55px">
         <Button

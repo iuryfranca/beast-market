@@ -80,7 +80,7 @@ export default function Home( ) {
                 price={item.price}
               />
             ))}
-            <Center w="-webkit-fill-available" display={beasts.length > 0 ? "none" : "flex"}>Nenhum Card disponível :"(</Center>
+            <Center w="-webkit-fill-available" display={beasts.length > 0 ? "none" : "flex"}>No Beasts Found :"(</Center>
           </Center>
           <HStack gap="25px" justifyContent="center" alignItems="flex-start">
             <Button
@@ -125,7 +125,7 @@ export default function Home( ) {
         </Center>
       </HStack>
 
-      <Box display={{base: "flex", md: "none"}} position="fixed" bottom="40px" top="all" right="40px" float="right">
+      <Box display={{base: "flex", md: "none"}} position="fixed" bottom="100px" top="all" right="30px" float="right">
         <Button
           bg="#21B6E6"
           w="50px"

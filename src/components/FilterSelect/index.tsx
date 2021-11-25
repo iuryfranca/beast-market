@@ -75,6 +75,11 @@ export function FilterSelect() {
         </MenuList>
       </Menu>
 
+
+        {/*
+          TODO: Filtro não funciona por conta de nao ter pego os preço da API, como coloquei os preço na mão, não seria viável filtrar pela api
+          e o filtro não fosse feito pela api, só iria funcionar nos items que estariam já sendo exibidos já que tem a questão da paginação e tals
+        */}
         <Select
           placeholder="Sort by"
           bg="#21B6E6"
