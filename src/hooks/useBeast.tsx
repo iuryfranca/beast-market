@@ -17,6 +17,7 @@ interface BeastsContextData {
   onChangeElementFilter(data: ElementData): void;
   pageController(action: string): void;
   onChangeSearchFilter(searchText: string): void;
+  resetFilters(): void;
 }
 
 export const BeastContext = createContext<BeastsContextData>({} as BeastsContextData);
@@ -69,6 +70,15 @@ export function BeastProvider({ children }: BeastProviderProps) {
     return setElement(data)
   }
 
+  function resetFilters() {
+    setElement(null)
+    setSearch('')
+    setCountPage(1)
+    console.log(element)
+    console.log(countPage)
+    console.log(search)
+  }
+
   return (
     <BeastContext.Provider value={{
       beasts,
@@ -76,6 +86,7 @@ export function BeastProvider({ children }: BeastProviderProps) {
       onChangeElementFilter,
       onChangeSearchFilter,
       pageController,
+      resetFilters,
     }}>
       { children }
     </BeastContext.Provider>

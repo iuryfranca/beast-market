@@ -39,10 +39,6 @@ export default function Home( ) {
 
   return (
     <>
-      <Head>
-        <title>Beast Market</title>
-      </Head>
-
       <HStack spacing="100px" m="0 auto" width={{ base: "370px", md: "650px", lg: "1155px" }} align="center">
         <Grid
           spacing="15px"

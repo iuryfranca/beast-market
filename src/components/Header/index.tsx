@@ -1,11 +1,14 @@
 import { Box, HStack, Flex, Heading, Link, Center, Grid } from '@chakra-ui/layout';
+import { useBeast } from '../../hooks/useBeast';
 
 export function Header() {
+  const { resetFilters } = useBeast()
+
   return (
     <Box>
       <HStack as={Grid} gridTemplateColumns={{ base: "100px 50px 50px", md: "auto auto auto" }} h="5rem" width={{ base: "300px", md: "650px", lg: "1155px" }} m="0 auto">
         <Flex align="center">
-          <Heading as="h2" fontSize={{base: "20px", md: "32px"}}>
+          <Heading cursor="pointer" onClick={resetFilters} as="h2" fontSize={{base: "20px", md: "32px"}}>
             Beast Market
           </Heading>
         </Flex>
