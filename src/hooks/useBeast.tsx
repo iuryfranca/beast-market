@@ -74,9 +74,6 @@ export function BeastProvider({ children }: BeastProviderProps) {
     setElement(null)
     setSearch('')
     setCountPage(1)
-    console.log(element)
-    console.log(countPage)
-    console.log(search)
   }
 
   return (
