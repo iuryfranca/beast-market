@@ -35,8 +35,9 @@ export function SignInButton() {
         gap="8px"
         gridTemplateColumns="auto auto auto"
         display={{ base: "none", md: "grid" }}
+        alignItems="center"
       >
-        <FaGithub size="20px" color="#737380" />
+        <Avatar h="32px" w="32px" name={session.user.name} src={session.user.image} />
         {session.user.name}
         <FiX size="20px" color="#737380" />
       </Box>

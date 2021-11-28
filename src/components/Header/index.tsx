@@ -15,12 +15,12 @@ export function Header() {
         </Flex>
 
         <Center as={HStack} display={{base: "none", md: "flex"}} spacing="50px" flex="1">
-          <Link to="/store">
+          <a href="/" >
             Store
-          </Link>
-          <Link to="/myAccount">
+          </a>
+          <a href="/account">
             My Account
-          </Link>
+          </a>
         </Center>
 
         <Flex align="center" w="200px" justify="flex-end">
@@ -28,13 +28,13 @@ export function Header() {
         </Flex>
       </HStack>
       <Center as={HStack} display={{base: "flex", md: "none"}} padding="10px 0" spacing="50px" flex="1">
-          <Link to="/store">
-            Store
-          </Link>
-          <Link to="/myAccount">
-            My Account
-          </Link>
-        </Center>
+        <a href="/" >
+          Store
+        </a>
+        <a href="/account">
+          My Account
+        </a>
+      </Center>
     </Box>
   );
 }
