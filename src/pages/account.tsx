@@ -5,7 +5,7 @@ import { useSession } from "next-auth/client";
 export default function Account() {
   const [session] = useSession()
 
-  return (
+  return session ? (
     <Grid
       paddingTop="50px"
       gridTemplateColumns={{ base: "none", md: "200px auto"}}
@@ -28,6 +28,18 @@ export default function Account() {
           <Text bg="#00ffffc8" padding="5px" borderRadius="8px" as="span">{session?.user?.email}</Text>
         </Text>
       </Flex>
+    </Grid>
+  ) : (
+    <Grid
+      paddingTop="50px"
+      gap="50px"
+      m="0 auto"
+      h="calc(100vh - 10rem)"
+      width={{ base: "310px", md: "650px", lg: "1155px" }}
+    >
+      <Center h="200px">
+        <Text>Login to have the data displayed</Text>
+      </Center>
     </Grid>
   );
 }
